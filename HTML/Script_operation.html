@@ -1,0 +1,486 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="Microsoft Word 98">
+<TITLE>EAC Scripting</TITLE>
+</HEAD>
+<BODY>
+
+<OL TYPE="I">
+
+<LI>
+<A NAME="_Toc452565423">
+<A NAME="_Toc452642078">
+<A NAME="_Toc388809450">
+<A NAME="_Toc500584155">
+<A NAME="_Toc500585584">
+<B>
+<FONT FACE="Arial" SIZE=4>Script operation</A></A></A></A></A>
+</LI>
+</B></FONT>
+<FONT FACE="Times"><P>&nbsp;</P>
+<OL TYPE="A">
+
+<LI>
+<A NAME="_Toc452565424">
+<A NAME="_Toc452642079">
+<A NAME="_Toc388809451">
+<A NAME="_Toc500584156">
+<A NAME="_Toc500585585">
+</FONT>
+<B>
+<I>
+<FONT FACE="Arial">Commands</A></A></A></A></A>
+</LI>
+</B>
+</I>
+</FONT>
+<FONT FACE="Times">
+<P>&nbsp;</P>
+<P>Commands are case sensitive (all  uppercase). Arguments are not case sensitive. Arguments in brackets are optional.</P>
+
+<P>NAME</P>
+<P>&#9;<B>ASSIGN</B> - sets sky frequency, polarization, and channel number</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;ASSIGN  <U>channel</U>   <U>frequency</U>   <U>polarization</P>
+</U>
+<P>DESCRIPTION</P>
+<P>The ASSIGN command sets receive frequency and polarization and associates them with a specified channel.  The channel is required as an operand in other commands (e.g. MINICAL, REFCHAN, etc.).</P>
+
+<P>OPERANDS</P>
+<P>The following operands are supported:</P>
+
+<U><P>channel</U>&#9;Acceptable values are A through D.</P>
+
+<U><P>frequency</U>&#9;The sky (receiving) frequency in megahertz.  Specification </P>
+<P>&#9;to .001 MHz will be accepted.</P>
+
+<U><P>polarization</U>&#9;Receiving antenna polarization.  Acceptable values are <B>rcp</P>
+</B><P>or <B>lcp</B>.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;<B>AZEL</B> - Send the antenna to a fixed position</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;AZEL   <U>az</U>   <U>el</P>
+</U>
+<P>DESCRIPTION</P>
+<P>&#9;The <B>AZEL</B> command sends the antenna to the azimuth and elevation specified</P>
+<P>by the arguments.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<U><P>az</U>&#9;The desired azimuth in decimal degrees (e.g.  180.000)</P>
+
+<U><P>el</U>&#9;The desired elevation in decimal degrees (e.g.  45.000)</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;<B>BEEP</B> - sound an audible alert</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;BEEP</P>
+
+<P>DESCRIPTION</P>
+<P>&#9;The <B>BEEP</B> command generates an audible tone.</P>
+
+<P>OPERANDS</P>
+<P>&#9;None.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;<B>CLR </B>- clear offsets</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;CLR   <U>type</U>   <U>coord</P>
+</U>
+<P>DESCRIPTION</P>
+<P>&#9;The <B>CLR</B> command sets the specified offset type to zero in the specified</P>
+<P>coordinate.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<U><P>type</U>&#9;&#9;Acceptable types are <B>po</B> (position), <B>ro</B> (rate), and <B>bso</B> (boresight).</P>
+
+<U><P>coord</U>&#9;&#9;Acceptable coordinates for<B> po</B> and <B>ro</B> are <B>all</B>, <B>az</B>, <B>el</B>, <B>xel</B>, <B>ha</B>, <B>dec</B>, and</P>
+<B><P>xdec</B>. Acceptable coordinates for <B>bso</B> are <B>all</B>, <B>dec</B>, <B>xdec</B>,<B> el</B>, and <B>xel</B>.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;DELTA_UT - sets UT1 - UTC offset for antenna pointing calculations</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;DELTA_UT   <U>msec</P>
+</U>
+<P>DESCRIPTION</P>
+<P>The <B>DELTA_UT</B> command inputs the time offset necessary to allow the antenna pointing controller to corrects its UTC reference for earth orientation.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>msec</U>&#9;&#9;The signed magnitude of the offset in milliseconds (e.g. </P>
+<P>500).  The offset may be obtained at <B>maia.usno.navy.mil/eo</B>  Follow the link to <B>IERS Bulletin A</B>.</P>
+
+<P><HR></HR></P>
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;FEEDPOS - selects beam waveguide feed</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;FEEDPOS   <U>number</P>
+</U>
+<P>DESCRIPTION</P>
+<P>The <B>FEEDPOS</B> command rotates the ellipsoid to the feed position specified by the number argument.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>number</U>&#9;An integer specifying the position of the desired feed.  </P>
+<P>Acceptable values are 1 through 6.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;MINICAL - calibrates system temperature, gain, and linearity of </P>
+<P>specified channel</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;MINICAL   <U>channel</P>
+</U>
+<P>DESCRIPTION</P>
+<P>The <B>MINICAL</B> command executes a single sequence of calibration steps for the specified channel (see the ASSIGN command to establish channels).  The order of the steps may vary for different radiometers, but the measurements are a power meter zero offset, a sky baseline, the sky with a noise diode, the ambient load, and the ambient load with noise diode.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<U><P>channel</U>&#9;The letter representing the particular receiver to be </P>
+<P>calibrated.  See the ASSIGN commands for acceptable channel designations.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;POFFSET, POFFSETS - send position offset(s) to the antenna</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;POFFSET   <U>coord</U>   <U>value</P>
+</U>
+<P>&#9;POFFSETS   <U>coord</U>   <U>value</U>   <U>value</P>
+</U>
+<P>DESCRIPTION</P>
+<P>&#9;The <B>POFFSET</B> command sends a single position offset to the antenna.</P>
+
+<P>The <B>POFFSETS</B> command sends a pair of orthogonal offsets to the antenna.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>coord</U>&#9;&#9;The coordinate system to use for antenna offsets.  </P>
+<P>Acceptable coordinates for POFFSET are <B>az</B>, <B>el</B>, <B>xel</B>, <B>ha</B>, <B>dec</B>, <B>xdec, y, and z</B>.  Acceptable coordinates for POFFSETS are <B>azel</B>, <B>xelel</B>, <B>hadec</B>, and <B>xdecdec</B>.</P>
+
+<P>&#9;<U>value</U>&#9;&#9;The desired offset in decimal degrees (x.xxxx) for antenna offsets.</P>
+</FONT><FONT FACE="Arial"><P>Offset in decimal inches for y and z. Negative values are acceptable.</P>
+</FONT><FONT FACE="Times">
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;RADLOG - start/stop radiometer recording of Tsys</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;RADLOG   <U>state</P>
+</U>
+<P>DESCRIPTION</P>
+<P>The <B>RADLOG</B> command is used to start/stop Tsys vs time recording in the radiometer. All active radiometer channels are turned on or off by this command.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>state</U>&#9;&#9;Acceptable values are <B>on</B> or <B>off</B>.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;REFCHAN - sets channel used for scan (boresight) measurements</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;REFCHAN   <U>ref</U>   [<U>sec</U>]</P>
+
+<P>DESCRIPTION</P>
+<P>The <B>REFCHAN</B> command is used to specify the reference channel for boresight offset calculations and power measurements.  An optional argument may be supplied to specify a second, simultaneous, channel for the boresight log.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>ref</U>&#9;The channel used for calculations.  Acceptable values are <B>A</B>, <B>B</B>, <B>C</B>, </P>
+<P>or <B>D</B>.</P>
+
+<P>&#9;<U>sec</U>&#9;The channel logged like a boresight, but not used in calculations.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;ROFFSET - send a rate offset to the antenna controller</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;ROFFSET   <U>coord</U>   <U>value</P>
+</U>
+<P>DESCRIPTION</P>
+<P>&#9;The <B>ROFFSET</B> command sends a rate offset of <B>value</B> in the axis specified by</P>
+<B><P>coord</B> to the antenna .</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>coord</U>&#9;&#9;The coordinate system to use for antenna offsets.  </P>
+<P>Acceptable coordinates are <B>az</B>, <B>el</B>, <B>xel</B>, <B>ha</B>, <B>dec</B>, and <B>xdec</B>.  </P>
+
+<P>&#9;<U>value</U>&#9;&#9;The desired rate in decimal milidegrees per second (x.xxxx).</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+</FONT><FONT FACE="Arial"><P>&#9;SCAN, PSCAN, XSCAN - execute antenna movement and coordinate data acquisition</P>
+</FONT><FONT FACE="Times">
+<P>SYNOPSIS</P>
+<P>&#9;SCAN       <U>type</U>     <U>coord</U>       <U>samples</U>   [<U>offset</U>]</P>
+<P>PSCAN    <U>coord</U>   <U>samples</U>   [<U>offset</U>]</P>
+<P>XSCAN    <U>coord</U>   <U>average</U>   <U>[offset]</U>   <U>rate</P>
+</U>
+<P>DESCRIPTION</P>
+<P>These commands execute antenna movement and coordinate data acquisition for Tsource, and pointing offsets, or source brightness maps. <B>PSCAN </B>executes a five point boresight, and <B>XSCAN </B>executes a cross scan.<B> SCAN</B> has been replaced by <B>PSCAN,</B> but is retained for backward compatibility.</P>
+
+</FONT><FONT FACE="Arial"><P>OPERANDS</P>
+</FONT><FONT FACE="Times"><P>&#9;The following operands are supported:</P>
+</FONT><FONT FACE="Arial">
+</FONT><U><FONT FACE="Times"><P>type</U>&#9;&#9;The name of the scan type to be invoked.  The only acceptable</P>
+<P>type is <B>5point</B>.  </P>
+
+<U><P>coord</U>&#9;&#9;The coordinate system to use for antenna offsets.  </P>
+<P>For <B>PSCAN</B>, only <B>xdecdec </B>is acceptable. For <B>XSCAN</B>, acceptable coordinates are <B>xdecdec</B> or <B>xelel</B>.</P>
+
+<U><P>samples</U>&#9;Number of 1 second samples in each data point (e.g. there</P>
+<P>are five data points in a 5point scan).  The acceptable range is 1 through 1000.</P>
+
+<U><P>offset</U>&#9;&#9;Offset from source to use when measuring baseline power. Specify</P>
+<P>this offset in terms of half-power antenna beamwidths. If not specified, the default offset is 4.0 beamwidths at the reference channel frequency.</P>
+
+<U><P>average</U>&#9;Number of consecutive cross scan pairs used in offset calculation.  Acceptable range 1 through 20.</P>
+
+<U><P>rate</U>&#9;Rate beam scans through source in degrees/second. Acceptable range 0.0001 to antenna slew rate. Please note that the <B>offset</B> may change slightly to fit an integer number of intervals into the scan at the chosen rate.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;SET_RAD_INT - set the radiometer integration value</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;SET_RAD_INT   <U>value</P>
+</U>
+<P>DESCRIPTION</P>
+<P>The <B>SET_RAD_INT</B> command sends the value argument to the radiometer to determine how many seconds to integrate each point.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<U><P>value</U>&#9;&#9;Acceptable values are 0 through 9.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;SOURCE - causes the antenna to track a new source</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;SOURCE   <U>name</U>   [<U>ra</U>   <U>dec</U>   [<U>epoch</U>] ]</P>
+
+<P>DESCRIPTION</P>
+<P>The <B>SOURCE</B> command sends position data to the antenna controller under control of the operands and, if started (see the <B>STARTUP</B> command), sends the antenna to the new source.  If <U>name</U> only is specified, the apparent position is computed from internal catalogs for sidereal sources and from ephemeredes for solar system objects.  If <U>ra</U> and <U>dec</U> are specified without an epoch, they are considered to be precessed sidereal source positions and are sent unchanged.  If <U>epoch</U> is also specified, <U>ra</U> and <U>dec</U> are precessed to the current epoch before being sent.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>name</U>&#9;&#9;The source name to use in a catalog search and in the </P>
+<P>operations log.  </P>
+
+<P>&#9;<U>ra</U>&#9;&#9;Right ascension in decimal degrees or hhmmss.s.</P>
+
+<U><P>dec</U>&#9;&#9;Declination in decimal degrees or hhmmss.</P>
+
+<P>&#9;<U>epoch</U>&#9;&#9;Reference time for <U>ra</U> and <U>dec</U> positions.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;STARTUP - prepares the antenna for a SOURCE or TRACK command</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;STARTUP</P>
+
+<P>DESCRIPTION</P>
+<P>If the antenna is shutdown, stowed, or in standby, the <B>STARTUP</B> command initiates a startup sequence that ends in a safety hold waiting for a <B>SOURCE</B> or <B>TRACK</B> command.  If the antenna is already tracking, this command is equivalent to <B>TRACK</B>.</P>
+
+<P>OPERANDS</P>
+<P>&#9;None.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;STOP - stops antenna movement</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;STOP</P>
+
+<P>DESCRIPTION</P>
+<P>The <B>STOP</B> command stops the antenna where it is.  Use the <B>TRACK</B> command to resume movement.</P>
+
+<P>OPERANDS</P>
+<P>&#9;None.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;STOW - sends the antenna to a safe position</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;STOW</P>
+
+<P>DESCRIPTION</P>
+<P>The <B>STOW</B> command sends the antenna to a safe position (zenith) and shuts down the electronics.  The antenna is normally stowed at the end of a pass.</P>
+
+<P>OPERANDS</P>
+<P>&#9;None.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;TLOG - start or stop system temperature logging</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;TLOG   <U>channel</U>   <U>state</P>
+</U>
+<P>DESCRIPTION</P>
+<P>The <B>TLOG</B> command controls time tagged logging of system temperature for the specified channel.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<U><P>channel</U>&#9;Acceptable channels are <B>A</B>, <B>B</B>, <B>C</B>, and <B>D</B>. All four, or any combination of</P>
+<P>the four may be on at any one time. Refer to the<B> ASSIGN</B> command for channel assignment.</P>
+
+<U><P>State</U>&#9;&#9;Acceptable states are <B>on</B> or <B>off</B>.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;TRACK - starts the antenna moving to point</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;TRACK</P>
+
+<P>DESCRIPTION</P>
+<P>The <B>TRACK</B> command loads position coordinates and starts the antenna moving to point after <B>STARTUP</B> or <B>STOP</B>.  If XAnt &quot;Next Src&quot; has been loaded, &quot;Next Src&quot; will replace the current source.  Otherwise,  <B>TRACK</B> commands reload the current coordinates.  Note that the<B> SOURCE</B> command contains an implicit <B>TRACK</B> command and is normally used following a <B>STARTUP</B> command.</P>
+
+<P>OPERANDS</P>
+<P>&#9;None.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;UNTIL_DO - provides a loop construct based on time</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;UNTIL_DO   <U>year</U>   <U>doy</U>   <U>utc</U> {</P>
+<P>&#9;&#9;Command 1</P>
+<P>&#9;&#9;Command n</P>
+<P>&#9;</FONT><FONT FACE="Times" SIZE=5>}</P>
+</FONT><FONT FACE="Times">
+<P>DESCRIPTION</P>
+<P>The <B>UNTIL_DO</B> command tests time first and executes the bracketed command sequence if the specified time has not been reached.  After sequence execution, time is tested again.  The loop exits if the specified time has been reached or exceeded.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>year</U>&#9;&#9;The four digit year.  </P>
+
+<P>&#9;<U>doy</U>&#9;&#9;The day of year up to three digits (using UTC).</P>
+
+<P>&#9;<U>utc</U>&#9;&#9;Universal Coordinated Time (hh:mm:ss).</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;WAIT - halts macro execution for the specified interval</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;WAIT   <U>interval</P>
+</U>
+<P>DESCRIPTION</P>
+<P>The<B> WAIT</B> command halts macro execution for the specified interval.  After the wait expires, macro execution resumes.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<U><P>interval</U>&#9;The time to wait in whole seconds.</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;WAIT_FOR_FEED - halts macro execution until ellipsoid has reached</P>
+<P>commanded position </P>
+
+<P>SYNOPSIS</P>
+<P>&#9;WAIT_FOR_FEED</P>
+
+<P>DESCRIPTION</P>
+<P>The <B>WAIT_FOR_FEED</B> command halts macro execution until the ellipsoid position is reported and is within 0.010 degrees of specified position.</P>
+
+<P>OPERANDS</P>
+<P>None</P>
+
+<P><HR></HR></P>
+<P>NAME</P>
+<P>&#9;WAIT_FOR_ON_POINT - halts macro execution until antenna has </P>
+<P>&#9;&#9;&#9;&#9;&#9;     settled on point within specified error </P>
+<P>     limits</P>
+
+<P>SYNOPSIS</P>
+<P>&#9;WAIT_FOR_ON_POINT   [<U>limit</U>]</P>
+
+<P>DESCRIPTION</P>
+<P>The <B>WAIT_FOR_ON_POINT</B> command halts macro execution until the standard deviation of the pointing error is less than <U>limit</U>.  To provide hysterisis, initially, the standard deviation must be less than one-half of <U>limit</U>.  When <U>limit</U> is not specified, the previously specified <U>limit</U> will apply.  If <U>limit</U> has never been specified, the default of one tenth of the reference channel (set by REFCHAN) half power beamwidth will apply.</P>
+
+<P>OPERANDS</P>
+<P>&#9;The following operands are supported:</P>
+
+<P>&#9;<U>limit</U>&#9;&#9;The maximum acceptable value of the standard deviation </P>
+<P>for an on point indication as a decimal fraction of the reference channel beamwidth.  The acceptable range is 0.001 to 1.0.</P>
+
+<P><HR></HR></P>
+<LI>
+<A NAME="_Toc452565425">
+<A NAME="_Toc452642080">
+<A NAME="_Toc388809452">
+<A NAME="_Toc500584157">
+<A NAME="_Toc500585586">
+</FONT>
+<B>
+<I>
+<FONT FACE="Arial">
+Script submission
+</FONT>
+</I>
+</B>
+</A></A></A></A></A>
+</LI>
+</OL>
+</OL>
+</FONT>
+<FONT FACE="Times"><P></P>
+<DIR>
+<DIR>
+
+<P>EAC development plans call for a graphical user interface to select, test, start, stop, modify on the fly, and resume scripts. Until then, users must manage scripts in a terminal window.</P>
+
+<P>Scripts are plain text files and may be generated and edited with any text editor. There is no script test software, so the user must review the completed script for typos, time tag errors, syntax, and so forth. Some errors may result in a skipped instruction, but most will result in script termination. To avoid loss of large periods of time, a periodic check of progress is recommended.</P>
+
+<P>The processing software looks in the current directory for a script called &quot;proc_macro.tcl&quot;. This script is loaded into /home/ops/scripts and /home/scops/scripts. To start processing a user script, open a terminal window, change directory to /home/ops/scripts or /home/scops/scripts and enter the following command line.</P>
+
+<FONT FACE="Arial">
+<P>pm &lt;station no.&gt; &lt;filename&gt;         for example,     pm 13 testfile</P>
+</FONT>
+<P>To stop a script, enter ctrl-C in the window where the pm command was invoked. Remember that scripts always start at the beginning, so partially executed scripts may need to be edited before restarting. When a script completes, a foreign host disconnect message appears on XAnt.</P>
+
+<P>The EAC provides for network transparent control via a socket connection. This means that any machine that can generate EAC commands can control operation. Local script operation uses the same socket connection as remote operation. Therefore, only one remote control connection at a time is allowed. When that connection is terminated (e.g. when a local script completes), a control termination warning popup appears.</P>
+
+</DIR>
+</DIR>
+</FONT>
+</BODY>
+</HTML>
+

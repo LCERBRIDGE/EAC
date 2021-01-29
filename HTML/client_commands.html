@@ -1,0 +1,856 @@
+<HTML>
+<HEAD>
+<TITLE>Xant Client Commands</TITLE>
+</HEAD>
+
+
+<BODY BGCOLOR="#e0e0e0" TEXT="black" LINK="blue" VLINK="cyan">
+<CENTER>
+<H1>DSN Radio Astronomy<BR>
+    Xant Client Commands</H1>
+Last updated by
+<A HREF="mailto:kuiper@dsnra.jpl.nasa.gov">Tom Kuiper</A>
+on 2002 May 16.
+</CENTER>
+
+
+<HR>
+<H2 ALIGN=center>Client Commands</H2>
+
+The following command set is recognized by the EAC, and
+currently can be sent to the EAC from a controlling client.
+<P>
+The commands are designed for asynchronous communication.  There is
+a prompt response that acknowledges the command or rejects it, though
+other messages may intervene between the command and the response.
+In some cases, there is a delayed response when the requested action
+has been completed or has failed.
+<P>
+Responses always begin by echoing the command to which they are
+responding.
+<P>
+Currently, <FONT COLOR=blue>versions 3.x</FONT> (version 3.4 being the latest)
+work on the 70-m antennas.
+<FONT COLOR=red>Version 4.0</FONT>and later versions work at DSS-13.
+Commands which are known to work reliably under both current series are
+colored <FONT COLOR=green>green</FONT>.
+<P>
+<FONT COLOR=red>Warning:</FONT>
+Commands which work under version 3.x but are not listed as
+version 4.0+ commands will probably be accepted but may behave unpredictably.
+When such behaviour is known, it is described below.
+<P>
+Version 6.2 is intended to be the first version to consolidate the two series.
+
+<H3>Antenna Commands</H3>
+
+<TABLE BORDER=3 BGCOLOR=white>
+ 
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>ASSIGN A|B|C|D
+                  <I>frequency polarization</I></TT></B></FONT>
+                  </TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD>
+    </TR>
+    <TR><TD COLSPAN=2>Assign the specified frequency (MHz) and polarization
+        (<TT>lcp</TT> or <TT>rcp</TT>) to the designated channel.<BR>
+        (This is used in situations where
+        the necessary information cannot be obtained from the RAC.)</TD></TR>
+    <TR><TD><B>Responses</B></TD><TD>none</TD></TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=green><B><TT>AZEL?</TT></B></FONT></TD></TR>
+    <TR>
+    <TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>all</TD>
+    </TR>
+    <TR><TD COLSPAN=2>Request current antenna position in Az/El.</TD></TR>
+    <TR><TD><B>Responses</B></TD></TR>
+    <TR>
+    <TD ALIGN=left VALIGN=top><TT>azel: <I>az el</I></TT></TD>
+    <TD>azimuth and elevation in decimal degrees</TD>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+    
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>AZEL</B>
+                  <I>azimuth elevation</I></TT></FONT></TD></TR>
+    <TR>
+    <TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD>
+    </TR>
+    <TR><TD COLSPAN=2>Move antenna to specified azimuth  and 
+                      elevation (in decimal degrees)<BR>
+                      (For version 3x, use <TT>move</TT>.)</TD></TR>
+    <TR><TD><B>Responses</B>:</TD></TR>
+    <TR><TD><TT>azel: completed</TT></TD>
+        <TD>Move initiated. (Use <TT>onsource?</TT> (versin 3.x) or 
+            <TT>onpoint?</TT> (version 4.0+) to query the move
+            status.)</TD>
+    <TR><TD><TT>azel: rejected. Wrong no. of args.</TT></TD>
+        <TD>&nbsp;</TD>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>BEEP</TT></B></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2>Sound an audible tone.</TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>CLR<I> type coord</I>
+    </TT></B></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2>Clear the desination offsets.  <I>Type</I> can have
+    the values <B>po</B> (position), <B>ro</B> (rate), or <B>bso</B>
+    (boresight).<BR>
+     Acceptable coordinates for <B>po</B> and <B>ro</B> are 
+    <B>all</B>, <B>az</B>, <B>el</B>, <B>xel</B>, <B>ha</B>,
+    <B>dec</B>, and <B>xdec</B>.<BR>
+     For bso use <B>all</B>, <B>dec</B>, <B>xdec</B>, <B>el</B>, and
+     <B>xel</B>. </TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>DELTA_UT<I> ms</I></TT></B>
+    </FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2>Specify UT1 - UTC in milliseconds.<BR>
+    The offset may be obtained at 
+    <A HREF="http://maia.usno.navy.mil/eo">http://maia.usno.navy.mil/eo</A>.
+    Follow the link to IERS Bulletin A .</TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>FEEDPOS<I> number</I></TT></B>
+    </FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2>Rotates the ellipsoid to the designated feed position.
+    </TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+                 
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>LOAD_MODEL</B>
+                  <I>model_name</I></TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD>
+</TR>
+<TR><TD COLSPAN=2>Loads the specified pointing model into the DSS-13
+                  APA</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD>load_model: completed</TD>
+    <TD>&nbsp;</TD>
+<TR><TD>load_model: rejected. Bad arglist.</TD>
+    <TD>&nbsp;</TD>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>MINICAL<I> channel</I></TT></B></FONT>
+    </TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2>calibrates system temperature,gain,and linearity of
+    specified channel.<B>
+    See the ASSIGN commands for acceptable channel designations.</TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+
+<TR><TD COLSPAN=2><FONT COLOR=blue>
+                  <B><TT>MOVE {AZ|EL} </B><I>angle</I></TT><BR>
+                  <B><TT>MOVE {X|Y|Z} </B><I>position</I></TT><BR>
+                  <B><TT>MOVE R</B> <I>angle</I></TT>
+                  </FONT></TD></TR>
+    <TR>
+    <TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>3.0</TD>
+    </TR>
+    <TR><TD COLSPAN=2>Move antenna to specified position in Az or El.<BR>
+                      Move subreflector to specified
+                      position in X, Y or Z axes (in decimal inches).<BR>
+                      Move subreflector to specified rotation (in degrees)
+        </TD></TR>
+    <TR><TD><B>Responses</B>:</TD></TR>
+    <TR><TD><TT>move: processing</TT></TD>
+        <TD>Move initiated.</TD></TR>
+    <TR><TD><TT>move: completed</TT></TD>
+        <TD>Requested offset has been applied</TD></TR>
+    <TR><TD><TT>move: rejected. Invalid axis.</TT></TD><TD>&nbsp;</TD></TR>
+    <TR><TD><TT>move: rejected. Position out of range.</TT></TD>
+        <TD>&nbsp;</TD>
+    </TR>
+    <TR><TD><TT>move: rejected. Rotation out of range</TT></TD>
+    <TD>&nbsp;</TD>
+    </TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+    
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>OFFSET 
+                  {AZEL|XELEL|HADEC|XDECDEC}
+                  <I>X-angle Y-angle</I></TT></B></FONT></TD></TR>
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>OFFSET {AZ|EL|XEL|HA|DEC|XDEC}
+                  <I>angle</I></TT></B></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>3.0</TD>
+</TR>
+<TR><TD COLSPAN=2>Set antenna position (as opposed to boresight)
+                  offset(s) in the specified coordinate(s), in degrees.
+</TD></TR>
+<TR><TD><B>Responses</B></TD>
+<TR><TD>offset: completed</TD>
+    <TD>Command sent to the ACS via the APA</TD></TR>
+<TR><TD>offset: rejected. Invalid command.</TD>
+    <TD>&nbsp;</TD>
+</TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>OFFSET {AZEL|XELEL|HADEC|XDECDEC}
+                  <I>X-angle Y-angle</I></TT></B></FONT></TD></TR>
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>OFFSET {AZ|EL|XEL|HA|DEC|XDEC}
+                  <I>angle</I></TT></B></FONT></TD></TR>
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>POFFSETS {AZEL|XELEL|HADEC|XDECDEC}
+                  <I>X-angle Y-angle</I></B></FONT></TD></TR>
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>POFFSET {AZ|EL|XEL|HA|DEC|XDEC}
+                  <I>angle</I></B></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0</TD>
+</TR>
+<TR><TD COLSPAN=2>Set antenna position (as opposed to boresight)
+                  offset(s) in the specified coordinate(s), in degrees.</TD>
+</TR>
+<TR><TD><B>Responses</B></TD>
+<TR><TD>poffset: completed</TD>
+    <TD>&nbsp;</TD>
+<TR><TD>poffsets: completed</TD>
+    <TD>&nbsp;</TD>
+<TR><TD>poffset: rejected. Invalid command.</TD>
+    <TD>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=2></TD></TR>
+                      
+<TR><TD COLSPAN=2><FONT COLOR=green><B><TT>OFFSET?</B></TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>all</TD>
+</TR>
+<TR><TD COLSPAN=2>Returns position (as opposed to boresight) offsets
+                  (in degrees)</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD>offset: az el xel ha dec xdec</TD>
+    <TD>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=2></TD></TR>
+                      
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>ONSOURCE[?]</B>
+                  <I></I></TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>3.x</TD>
+</TR>
+<TR><TD COLSPAN=2>Initiates transmission of the periodic (roughly once
+     a second) message "Slewing"
+    to the client, terminated by one message "Tracking".<BR>
+    <FONT COLOR=red>Warning:</Font> Issuing this command to a current
+    version 4.0 - 6.1 will produce "Slewing" messages at a rate higher
+    than either the EAC or the client can handle.  Both will freeze.</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD>Slewing</TD>
+    <TD>&nbsp;</TD>
+<TR><TD>Tracking</TD>
+    <TD>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=2></TD></TR>
+                      
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>ONPOINT[?]</B>
+                  <I></I></TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD>
+</TR>
+<TR><TD COLSPAN=2>This is a follow-up command for <TT>wait_for_on_point</TT>.
+    </TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD><TT>Slewing</TT></TD>
+    <TD>&nbsp;</TD>
+<TR><TD VALIGN=top><tt>limit. completed. <I>number</I></TT></TD>
+    <TD><tt><I>number</I></TT> is the fraction of the beamwidth to which
+        the pointing tolerance has been set, or 0.0000 if the beamwidth
+        (frequency) is not known. (See <TT>REFCHAN</TT></TD>
+</TR>
+<TR><TD COLSPAN=2></TD></TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>REFCHAN A|B|C|D</TT></B></FONT>
+                  </TD></TR>
+    <TR>
+    <TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD>
+    </TR>
+    <TR><TD COLSPAN=2>Specifies the channel to be used for calculating
+        beamwidths and doing boresights.</TD></TR>
+    <TR><TD><B>Responses</B></TD><TD>none</TD></TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+    
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>ROFFSET {AZ|EL|XEL|HA|DEC|XDEC}</B>
+                  <I>rate</I></TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0</TD>
+</TR>
+<TR><TD COLSPAN=2>Set the rate offset to the specified value in millidegrees
+                  per second.</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD>roffset: rejected. Coord not valid.</TD>
+    <TD>&nbsp;</TD>
+<TR><TD>roffset: completed</TD>
+    <TD>&nbsp;</TD>
+<TR><TD>roffset: rejected. Wrong number of args.</TD>
+    <TD>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=2></TD></TR>
+                      
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>SOURCE
+                  <I>name</I></B></TT></FONT></TD></TR>
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>SOURCE</B>
+                  <I>name RA(epoch) Dec(epoch) epoch</I></TT></FONT></TD></TR>
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>SOURCE</B>
+                  <I>name RA(epoch) Dec(epoch) epoch
+                  RA(app) Dec(app)</I></TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>3.0</TD>
+</TR>
+<TR><TD COLSPAN=2>Set the source name and coordinates</TD></TR>
+<TR><TD COLSPAN=2><B>Arguments</B></TD>
+<TR><TD><I>name</I></TD>
+    <TD>Text string with no spaces.  If no additional arguments are
+        specified, look the coordinates up in the catalog (or compute
+        for a planet). Planets are specified with the first letter
+        upper-case, the rest lower-case.</TD>
+<TR><TD><I>RA(epoch)</I></TD>
+    <TD>Mean right ascension at the epoch (decimal hours)</TD>
+<TR><TD><I>Dec(epoch)</I></TD>
+    <TD>Mean declination at the epoch (decimal degrees)</TD>
+<TR><TD><I>epoch</I></TD>
+    <TD>epoch for the mean coordinates (B1950 or J2000)</TD>
+<TR><TD><I>RA(app)</I></TD>
+    <TD>apparent right ascension at time of observtions (decimal degrees)</TD>
+<TR><TD><I>Dec(app)</I></TD>
+    <TD>apparent right ascension at time of observtions
+        (decimal degrees, 0 - 360)</TD>
+</TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD>source: completed</TD>
+    <TD>This means that the command was accepted and is being processed.
+	To find out if the antenna is on the source, use <TT>onsource?</TT>
+	</TD>
+<TR><TD>source: rejected. Invalid epoch.</TD>
+    <TD>Only B1950 and J2000 are valid.</TD>
+<TR><TD>source: rejected. Invalid command.</TD>
+    <TD>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=2></TD></TR>
+                      
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>SOURCE
+                  <I>name</I></B></TT></FONT></TD></TR>
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>SOURCE</B>
+                  <I>name RA(epoch) Dec(epoch) epoch</I></TT></FONT></TD></TR>
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>SOURCE</B>
+                  <I>name RA(epoch) Dec(epoch) epoch
+                  RA(app) Dec(app)</I></TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0</TD>
+</TR>
+<TR><TD COLSPAN=2>Set the source name and coordinates</TD></TR>
+<TR><TD COLSPAN=2><B>Arguments</B></TD>
+<TR><TD><I>name</I></TD>
+    <TD>Text string with no spaces.  If no additional arguments are
+        specified, look the coordinates up in the catalog (or compute
+        for a planet). Planets are specified with the first letter
+        upper-case, the rest lower-case.</TD>
+<TR><TD><I>RA(epoch)</I></TD>
+    <TD>Mean right ascension at the epoch (decimal hours)</TD>
+<TR><TD><I>Dec(epoch)</I></TD>
+    <TD>Mean declination at the epoch (decimal degrees)</TD>
+<TR><TD><I>epoch</I></TD>
+    <TD>epoch for the mean coordinates (B1950 or J2000)</TD>
+<TR><TD><I>RA(app)</I></TD>
+    <TD>apparent right ascension at time of observtions (decimal degrees)</TD>
+<TR><TD><I>Dec(app)</I></TD>
+    <TD>apparent right ascension at time of observation
+        (decimal degrees, <FONT COLOR=red>-90 - +90</FONT>)</TD>
+</TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD>source: completed</TD>
+    <TD>&nbsp;</TD>
+<TR><TD>source: rejected. Invalid epoch.</TD>
+    <TD>Only B1950 and J2000 are valid.</TD>
+<TR><TD>source: rejected. Invalid command.</TD>
+    <TD>&nbsp;</TD>
+</TR>
+    <TR>
+    <TD COLSPAN=2></TD>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>STARTUP<I></I></TT></B>
+    </FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>STOP<I></I></TT></B></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>STOW<I></I></TT></B></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>TRACK<I></I></TT></B></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>XSCAN<I> args</I><BR>
+                                         SCAN<I> args</I></TT></B>
+    </FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>WAIT<I></I></TT></B></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>WAIT_FOR_FEED<I></I></TT></B>
+    </FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>WAIT_FOR_ON_POINT</TT></B></FONT>
+                  </TD></TR>
+    <TR>
+    <TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD>
+    </TR>
+    <TR><TD COLSPAN=2>This enables the <TT>onpoint?</TT> command.  It should
+    be followed by a series of <TT>onpoint?</TT> commands until the
+    response <TT>"limit. completed.</TT> is received.</TD></TR>
+    <TR><TD><B>Responses</B></TD><TD>none</TD></TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+</TABLE>
+
+
+<H3>Receiver Commands</H3>
+
+The following commands are not processed by the EAC, except to verify that
+they are valid.  The commands are processed by scripts defined in the
+<TT>rac_ctlrc</TT> or <TT>rac_monrc</TT>start-up file for the Tcl interpreter
+assigned to the EAC upon connecting as a client of <tt>racsrv</tt>.  The
+script directory on the RAC is either <tt>/usr/local/lib/racsrv.dflt</TT>
+or <tt>/usr/local/lib/racsrv.<I>PROJECT</I></TT>, where <I>PROJECT</I>
+is an optional command-line parameter specified when <TT>racsrv</TT> is
+started.
+<P>
+Any of these commands may fail with<BR>
+<TT><I>command</I>: rejected. RAC not connected.</TT>
+<P>
+
+<TABLE BORDER=3 BGCOLOR=white>
+
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>CALOFF</B>
+                  <I></I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD><TT>dflt</TT> 70-m</TD></TR>
+<TR><TD COLSPAN=2>Turn noise diode off</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+    <TR><TD VALIGN=top>caloff: rejected.</TD>
+        <TD>If an attempt to turn on an L-band noise diode fails.</TD>
+    </TR>
+<TR><TD VALIGN=top>caloff: completed.</TD>
+    <TD>If the noise diode was turned on succesfully, or if
+            an S or X-band front end is selected, in which case nothing
+            was done.</TD>
+    </TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>CALOFF</B>
+                  <I></I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD>DSS-13 <TT>rac13 dflt</TT></TD></TR>
+<TR><TD COLSPAN=2>Turn noise diode off</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+    <TR><TD VALIGN=top><TT>Illegal command should be caloff 0 1 or 2</TT></TD>
+        <TD>&nbsp;</TD>
+    </TR>
+<TR><TD VALIGN=top><TT>caloff: <I>timecode</I> <I>band</I></TT></TD>
+    <TD><TT><I>timecode</I></TT> is in seconds since 00:00 Jan 1 1970</TD>
+    </TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>CALON</B>
+                  <I></I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD><TT>dflt</TT> 70-m</TD></TR>
+<TR><TD COLSPAN=2>Turn noise diode on</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD VALIGN=top>calon: rejected.</TD>
+    <TD>If an attempt to turn on an L-band noise diode was successful.</TD>
+    </TR>
+<TR><TD VALIGN=top>calon: <I>{noise diode value}</I></TD>
+    <TD>If an attempt to turn on the K-band noise diode was successful.</TD>
+    </TR>
+<TR><TD VALIGN=top>caloff: completed.</TD>
+    <TD>If the L-band noise diode was turned on succesfully, or if
+        an S or X-band front end was selected, in which case nothing
+        was done.</TD>
+    </TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>CALON</B>
+                  <I>{band} {polarization}</I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD>DSS-13 <TT>rac13 dflt</TT></TD></TR>
+<TR><TD COLSPAN=2>Turn noise diode on, for the optionally specified band
+                  (0, 1, or 2; default 0).  The optional argument
+                  for polarization is not used.</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD><TT>Illegal command should be calon 0 1 or 2</TT></TD>
+    <TD>&nbsp;</TD></TR>
+<TR><TD VALIGN=top><TT>calon: <I>timecode</I> <I>band</I></TT></TD>
+    <TD><TT><I>timecode</I></TT> is in seconds since 00:00 Jan 1 1970</TD></TR>
+<TR><TD VALIGN=top></TD></TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>ELLIPSOID_POS<I></I></TT></B>
+    </FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>LO</B>
+                  <I>frequency</I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD>70-m <TT>dflt</TT></TD></TR>
+<TR><TD COLSPAN=2>Set the local oscillator frequency
+    (1000 &lt; <I>frequency</I> &lt; 27000) or
+    make special configurations (<I>frequency</I> &lt 100).
+    <TABLE>
+    <TR><TD VALIGN=top>1</TD>
+        <TD>Select L-band remote test signal</TD></TR>
+    <TR><TD VALIGN=top>2</TD>
+        <TD>Select L-band local test signal</TD></TR>
+    <TR><TD VALIGN=top>3</TD>
+        <TD>Turn on L-band local test signal</TD></TR>
+    <TR><TD VALIGN=top>4</TD>
+        <TD>Turn off L-band local test signal</TD></TR>
+    <TR><TD VALIGN=top>5</TD>
+        <TD>Puts the Osc in the POST LNA1 position</TD></TR>
+    <TR><TD VALIGN=top>6</TD>
+        <TD> Puts  the Osc in the POST LNA2 position</TD></TR>
+    <TR><TD VALIGN=top>8</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>9</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>10</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>11</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>12</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>13</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>14</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>15</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>16</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>17</TD>
+        <TD></TD></TR>
+    <TR><TD VALIGN=top>18</TD>
+        <TD></TD></TR>
+    </TABLE>
+    </TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD><TT>lo: rejected. Bad arglist.</TT></TD>
+    <TD>&nbsp;</TD></TR>
+<TR><TD><TT>lo: rejected. Bad frequency.</TT></TD>
+    <TD>Frequency exceeded 27000.0</TD></TR>
+    <TR><TD VALIGN=top><TT>lo: pass-through completed.</TD>
+        <TD>Special configuration request rejected.</TD>
+    </TR>
+    <TR><TD VALIGN=top><TT>lo: rejected. Bad frequency.</TT></TD>
+        <TD>Frequency not in the range of 1000-27000.</TD>
+    </TR>
+    <TR><TD VALIGN=top><TT>lo: L-band  &lt;LNA ID&gt;</TT></TD>
+        <TD>LO set successfully for L-band</TD>
+    <TR><TD VALIGN=top><TT>lo: rejected</TT></TD>
+        <TD>Setting L-band or K-band LO failed</TD>
+    <TR><TD VALIGN=top><TT>lo: S-band</TT></TD>
+        <TD>LO not actually set but appropriate power meter selected</TD>
+    <TR><TD VALIGN=top><TT>lo: X-band</TT></TD>
+        <TD>LO not actually set but appropriate power meter selected</TD>
+    <TR><TD VALIGN=top><TT>lo: other-band</TT></TD>
+        <TD>LO requested was in range of 9000 to 17000 and nothing was 
+            done.</TD>
+    <TR><TD VALIGN=top><TT>lo: K-band &lt;freq&gt;</TT></TD>
+        <TD>K-band LO successfully set.</TD>
+    </TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=blue><B><TT>LO</B>
+                  <I>name frequency sideband polarization tone_spacing
+                     tone_offset</TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD>70-m <TT>svlbi-2.0</TT></TD></TR>
+<TR><TD COLSPAN=2>Sets the frequency of the receiver.<BR>
+                  <TABLE>
+                  <TR><TD VALIGN=top><I>name</I></TD>
+                      <TD>specifies the chain and can be <TT>lo1</TT> or
+                      <TT>lo2</TT> if 17000 &lt; <I>frequency</I> &lt; 27000.
+                      </TD></TR>
+                  <TR><TD VALIGN=top><I>frequency</I></TD>
+                      <TD>is in MHz</TD></TR>
+                  </TABLE>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD><TT>lo: <I>timecode frequency</I> Was sent to the UWCCtrol
+        Program</TT></TD>
+    <TD>&nbsp;</TD>
+<TR><TD><TT>lo: <I>timecode</I> lo command Not Implemented at DSS-13 except
+        for 22GHz System</TT></TD>
+    <TD>&nbsp;</TD>
+</TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>LO</B>
+                  <I>name, &freq, sideband, pol, &tone_space, &tone_off</I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD>DSS-13 <TT>rac13 dflt</TT></TD></TR>
+<TR><TD COLSPAN=2>Sets the frequency of the 18-26 GHz receiver.</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD><TT>lo: <I>timecode frequency</I> Was sent to the UWCCtrol
+        Program</TT></TD>
+    <TD>&nbsp;</TD>
+<TR><TD><TT>lo: <I>timecode</I> lo command Not Implemented at DSS-13 except
+        for 22GHz System</TT></TD>
+    <TD>&nbsp;</TD>
+</TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>LOAD</B>
+                  <I></I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD><TT>dflt</TT></TD></TR>
+<TR><TD COLSPAN=2>Switch LNA input to ambient load position</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+    <TR><TD VALIGN=top>load: rejected.</TD>
+        <TD>If an attempt to put the L-band load in failed.</TD>
+    </TR>
+    <TR><TD VALIGN=top>load: &lt;load temp&gt;.</TD>
+        <TD>If the load was inserted succesfully, or if
+            an S or X-band front end is selected, in which case nothing
+            was done.</TD>
+    </TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>SEND_PAGE<I></I></TT></B></FONT>
+    </TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Vers.</B></TD>
+    <TD>4.0+</TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD><B>Responses</B></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><TT><I></I></TT></TD>
+    <TD></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>SKY</B>
+                  <I></I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD><TT>dflt</TT></TD></TR>
+<TR><TD COLSPAN=2>Switch LNA input to sky position</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+    <TR><TD VALIGN=top>sky: rejected. lna variable not assigned.</TD>
+        <TD>If the assigned L-band LNA was not LNA1 or LNA2.</TD>
+    </TR>
+    <TR><TD VALIGN=top>sky: rejected.</TD>
+        <TD>If the attempt to remove the load from the signal path failed.</TD>
+    </TR>
+    <TR><TD VALIGN=top>sky: &lt;load temp&gt;.</TD>
+        <TD>If the load was removed succesfully, or if
+            an S or X-band front end is selected, in which case nothing
+            was done.</TD>
+    </TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT>L_THERM<BR>
+                                         S_THERM<BR>
+                                         X_THERM<BR>
+                                         K_THERM</B>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD><TT>dflt</TT></TD></TR>
+<TR><TD COLSPAN=2>Set ambient load temperature.<BR>
+                  (This should generally not be necessary; the RAC should
+                  be able to measure it directly.)</TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD></TD>
+    <TD></TD>
+</TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+<TR><TD COLSPAN=2><FONT COLOR=red><B><TT></B>
+                  <I></I>
+		  </TT></FONT></TD></TR>
+<TR><TD ALIGN=left VALIGN=top><B>Project</B></TD>
+    <TD><TT>dflt</TT></TD></TR>
+<TR><TD COLSPAN=2></TD></TR>
+<TR><TD COLSPAN=2><B>Responses</B></TD>
+<TR><TD></TD>
+    <TD></TD>
+</TR>
+    <TR>
+    <TD COLSPAN=2></TD></TR>
+    </TR>
+
+</TABLE>
+
+
+<DT><B>LO</B> &lt;float&gt; - 
+<DD>    </DT>
+    Passed on to the RAC. Possible responses:
+    <TABLE>
+    </TABLE>
+
+<H3>Other Commands</H3>
+
+<DL>
+<DT><B>ANTENNA=</B>
+<DD>Pass-through commands for APA, BVR and UGC subsystems
+<DT><B>WEATHER[?]</B>
+<DD>Request weather information
+</DL>
+
+</BODY>
+</HTML>
+
+
